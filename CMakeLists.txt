@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8.3)
-project (jchuviewer)
+project (jchu_glviewer)
 
 add_subdirectory(ext ext_build)
 
@@ -15,22 +15,30 @@ include_directories(
   # NanoGUI user interface library
   ${NANOGUI_INCLUDE_DIR}
   ${NANOGUI_EXTRA_INCS}
+  # Tinyobjloader
+  ${TINYOBJLOADER_INCLUDE_DIR}
 )
 
 
 # add the executable
-add_executable(jchuviewer
+add_executable(jchu_glviewer
 
 # Header files
+#include/camera.h
+include/ui/application.h
+include/renderable/renderable.h
 include/renderer.h
-include/interface/application.h
+include/scene.h
 
 # Source files
+src/camera.cpp
 src/main.cpp
+src/renderable/renderable.cpp
 src/renderer.cpp
-src/interface/application.cpp
+src/scene.cpp
+src/ui/application.cpp
 )
 
 add_definitions(${NANOGUI_EXTRA_DEFS})
 
-target_link_libraries (jchuviewer nanogui ${NANOGUI_EXTRA_LIBS})
+target_link_libraries (jchu_glviewer nanogui tinyobjloader ${NANOGUI_EXTRA_LIBS})

@@ -86,8 +86,9 @@ if (WIN32)
 endif()
 
 
-
-
+# Build tinyobjloader
+add_subdirectory(tinyobjloader)
+set(TINYOBJLOADER_COMPILATION_SHARED OFF CACHE BOOL " " FORCE)
 
 # Build NanoGUI
 set(NANOGUI_BUILD_EXAMPLE OFF CACHE BOOL " " FORCE)
