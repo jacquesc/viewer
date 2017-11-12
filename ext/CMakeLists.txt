@@ -90,6 +90,9 @@ endif()
 add_subdirectory(tinyobjloader)
 set(TINYOBJLOADER_COMPILATION_SHARED OFF CACHE BOOL " " FORCE)
 
+# Build GLM
+add_subdirectory(glm)
+
 # Build NanoGUI
 set(NANOGUI_BUILD_EXAMPLE OFF CACHE BOOL " " FORCE)
 set(NANOGUI_BUILD_SHARED  OFF CACHE BOOL " " FORCE)

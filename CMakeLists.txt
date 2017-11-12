@@ -17,6 +17,7 @@ include_directories(
   ${NANOGUI_EXTRA_INCS}
   # Tinyobjloader
   ${TINYOBJLOADER_INCLUDE_DIR}
+
 )
 
 
@@ -41,4 +42,4 @@ src/ui/application.cpp
 
 add_definitions(${NANOGUI_EXTRA_DEFS})
 
-target_link_libraries (jchu_glviewer nanogui tinyobjloader ${NANOGUI_EXTRA_LIBS})
+target_link_libraries (jchu_glviewer glm nanogui tinyobjloader ${NANOGUI_EXTRA_LIBS})
