@@ -2,6 +2,7 @@
 
 #include <vector>
 
+class Camera;
 class Renderable;
 
 class Scene {
@@ -12,8 +13,8 @@ public:
 	bool addObjModel(const char * const objFile);
 	void clear();
 
-
-	void draw();
+	void setupCamera(Camera * camera);
+	void draw(Camera *camera);
 	
 private:
 	std::vector<Renderable *> mRenderables;

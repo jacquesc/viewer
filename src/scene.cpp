@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include <renderable/renderable.h>
+#include <camera.h>
+#include <gl/glrenderable.h>
 #include <scene.h>
 
 Scene::Scene() {
@@ -22,8 +23,8 @@ bool Scene::addObjModel(const char * const objFile) {
 	tinyobj::attrib_t attributes;
 
 	if (tinyobj::LoadObj(&attributes, &shapes, &materials, &objError, objFile)) {
-		
-		Renderable *renderable = new Renderable();
+		// FIXME: set which type don't hardcode
+		GLRenderable *renderable = new GLRenderable();
 		renderable->setModelData(attributes, shapes);
 		mRenderables.push_back(renderable);
 		std::cout << "Obj " << objFile << " loaded." << std::endl;
@@ -37,9 +38,15 @@ bool Scene::addObjModel(const char * const objFile) {
 void Scene::clear() {
 }
 
-void Scene::draw() {
+void Scene::setupCamera(Camera *camera) {
+	// FIXME: Remove hard-coded values
+	camera->setViewport(0.f, 0.f, 300, 300);
+	camera->setCameraSettings(60.f, 1.f, 0.1f, 100.f);
+}
+
+void Scene::draw(Camera *camera) {
 	std::vector<Renderable *>::iterator it = mRenderables.begin();
 	for (; it != mRenderables.end(); ++it) {
-		(*it)->draw();
+		(*it)->draw(camera);
 	}
 }

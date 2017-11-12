@@ -30,6 +30,10 @@ include/ui/application.h
 include/renderable/renderable.h
 include/renderer.h
 include/scene.h
+include/gl/glrenderable.h
+include/gl/shaderfactory.h
+#include/gl/glhandle.h
+include/gl/shaderprogram.h
 
 # Source files
 src/camera.cpp
@@ -38,6 +42,9 @@ src/renderable/renderable.cpp
 src/renderer.cpp
 src/scene.cpp
 src/ui/application.cpp
+src/gl/glrenderable.cpp
+src/gl/shaderfactory.cpp
+src/gl/shaderprogram.cpp
 )
 
 add_definitions(${NANOGUI_EXTRA_DEFS})

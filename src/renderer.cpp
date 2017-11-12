@@ -16,6 +16,8 @@ Renderer::~Renderer() {
 
 void Renderer::renderScene(Scene *scene) {
 	mScene = scene;
+	std::cout << "Setting up camera.." << std::endl;
+	mScene->setupCamera(mCamera);
 }
 
 void Renderer::drawGL() {
@@ -23,6 +25,7 @@ void Renderer::drawGL() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (mScene) {
-		mScene->draw();
+		mScene->draw(mCamera);
 	}
+
 }
