@@ -17,7 +17,7 @@ ShaderProgram::ShaderProgram(GLuint shaderProgram) : mShaderProgram(shaderProgra
 
 }
 
-void ShaderProgram::updateUniform(Camera * camera, GLRenderable *renderable) {
+void ShaderProgram::updateUniform(const Camera * camera, GLRenderable *renderable) {
 	if (camera) {
 		glm::mat4 viewMatrix(1.f), projectionMatrix(1.f);
 		camera->getProjectionMatrix(projectionMatrix);

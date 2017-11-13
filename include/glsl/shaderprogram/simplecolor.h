@@ -10,5 +10,5 @@ class SimpleColorProgram : public ShaderProgram {
 public:
 	SimpleColorProgram();
 	SimpleColorProgram(GLuint shaderProgram);
-	void updateUniform(Camera *camera, GLRenderable *renderable);
+	void updateUniform(const Camera *camera, GLRenderable *renderable);
 };

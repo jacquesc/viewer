@@ -14,8 +14,8 @@ public:
 	void setViewport(int x, int y, int width, int height);
 	void getViewport(int& x, int& y, int& width, int& height);
 
-	void getProjectionMatrix(glm::mat4& projectionMatrix);
-	void getViewMatrix(glm::mat4& viewMatrix);
+	void getProjectionMatrix(glm::mat4& projectionMatrix) const;
+	void getViewMatrix(glm::mat4& viewMatrix) const;
 
 private:
 	// TODO: orientation

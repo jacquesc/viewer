@@ -16,7 +16,7 @@ GLRenderable::~GLRenderable() {
 
 }
 
-void GLRenderable::draw(Camera *camera) {
+void GLRenderable::draw(const Camera *camera) {
 	if (!mInit) {
 		setupRenderPrimitives();
 		mInit = true;
@@ -25,8 +25,7 @@ void GLRenderable::draw(Camera *camera) {
 	ShaderProgram *shaderProgram = ShaderFactory::getInstance()->getPresetShader(mShaderType);
 	glUseProgram(shaderProgram->getHandle());
 	glBindVertexArray(mVao);	
-	// FIXME: polymorphism
-	((SimpleLightProgram *)shaderProgram)->updateUniform(camera, this);
+	shaderProgram->updateUniform(camera, this);
 	glDrawArrays(GL_TRIANGLES, 0, mVertices.size());
 }
 
@@ -66,8 +65,6 @@ void GLRenderable::setupVertexAttributes(GLuint shaderProgram, std::vector<Attri
 
 void GLRenderable::setupRenderPrimitives() {
 	ShaderFactory *shaderFactory = ShaderFactory::getInstance();
-	// std::function<void()> attribCallback = std::bind(&GLRenderable::setupVertexAttributes, this);
-	// Creation
 	ShaderProgram *shaderProgram = shaderFactory->getPresetShader(mShaderType);
 	setupVertexAttributes(shaderProgram->getHandle(), shaderProgram->getAttributes());
 }

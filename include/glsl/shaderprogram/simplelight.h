@@ -6,5 +6,5 @@ class SimpleLightProgram : public ShaderProgram {
 public:
 	SimpleLightProgram();
 	SimpleLightProgram(GLuint shaderProgram);
-	void updateUniform(Camera *camera, GLRenderable *renderable);
+	void updateUniform(const Camera *camera, GLRenderable *renderable);
 };

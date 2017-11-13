@@ -17,7 +17,7 @@ public:
 
 	void getTransform(glm::mat4& transform);
 
-	virtual void draw(Camera *camera) = 0;
+	virtual void draw(const Camera *camera) = 0;
 
 protected:
 	std::vector<glm::vec3> mVertices;

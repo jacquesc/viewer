@@ -15,6 +15,6 @@ SimpleColorProgram::SimpleColorProgram(GLuint shaderProgram)
 	: ShaderProgram(shaderProgram) {
 }
 
-void SimpleColorProgram::updateUniform(Camera * camera, GLRenderable *renderable) {
+void SimpleColorProgram::updateUniform(const Camera * camera, GLRenderable *renderable) {
 	ShaderProgram::updateUniform(camera, renderable);
 }

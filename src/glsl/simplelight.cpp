@@ -17,7 +17,7 @@ SimpleLightProgram::SimpleLightProgram(GLuint shaderProgram)
 	: ShaderProgram(shaderProgram) {
 }
 
-void SimpleLightProgram::updateUniform(Camera * camera, GLRenderable *renderable) {
+void SimpleLightProgram::updateUniform(const Camera * camera, GLRenderable *renderable) {
 	ShaderProgram::updateUniform(camera, renderable);
 
 	glm::mat4 modelMatrix;

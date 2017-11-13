@@ -12,7 +12,7 @@ class ShaderProgram {
 public:
 	ShaderProgram();
 	ShaderProgram(GLuint shaderProgram);
-	virtual void updateUniform(Camera * camera, GLRenderable *renderable);
+	virtual void updateUniform(const Camera * camera, GLRenderable *renderable);
 	GLuint getHandle() const { return mShaderProgram; }
 
 	std::vector<Attribute>& getAttributes() { return mAttributes; }
