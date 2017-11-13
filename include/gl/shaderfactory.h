@@ -11,11 +11,9 @@ class ShaderFactory {
 
 public:
 	static ShaderFactory *getInstance();
-	ShaderProgram *getPresetShader(Presets::Shaders preset, 
-		std::function<void()>* attributesCallback = NULL);
+	ShaderProgram *getPresetShader(Presets::Shaders preset);
 
 	void createUniform(Presets::Shaders preset, GLuint shaderProgram, std::vector<Uniform>& uniforms);
-	void createVertexAttributes(Presets::Shaders preset, GLuint shaderProgram, std::vector<Attribute>& attributes);
 
 private:
 	GLuint createVertexShader(const std::string& shaderFile);

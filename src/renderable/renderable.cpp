@@ -4,15 +4,12 @@
 
 #include <renderable/renderable.h>
 
-namespace {
-	static float ROTATION_ANGLE = 0.f;
-}
-
 Renderable::Renderable() {
 }
 
 Renderable::~Renderable() {
 }
+
 
 void Renderable::setModelData(const tinyobj::attrib_t attributes,
 	const std::vector<tinyobj::shape_t>& shapes) {
@@ -22,9 +19,15 @@ void Renderable::setModelData(const tinyobj::attrib_t attributes,
 			mVertices.push_back(glm::vec3(attributes.vertices[3 * index.vertex_index + 0],
 				attributes.vertices[3 * index.vertex_index + 1],
 				attributes.vertices[3 * index.vertex_index + 2]));
+
+			mNormals.push_back(glm::vec3(attributes.normals[3 * index.normal_index + 0],
+				attributes.normals[3 * index.normal_index + 1],
+				attributes.normals[3 * index.normal_index + 2]));
 		}
 	}
+
 	std::cout << "# Vertices: " << mVertices.size() << std::endl;
+	std::cout << "# Normals: " << mNormals.size() << std::endl;
 }
 
 void Renderable::getTransform(glm::mat4& transform) {

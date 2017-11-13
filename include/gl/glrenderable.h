@@ -10,12 +10,12 @@
 
 class GLRenderable : public Renderable {
 public:
-	GLRenderable(Presets::Shaders preset = Presets::Shaders::SIMPLE_COLOR);
+	GLRenderable(Presets::Shaders preset = Presets::Shaders::SIMPLE_LIGHT);
 	virtual ~GLRenderable();
 
 	void draw(Camera *camera);
 private:
-	void setupVertexAttributes();
+	void setupVertexAttributes(GLuint shaderProgram, std::vector<Attribute>& attributes);
 	void setupRenderPrimitives();
 	void setupRenderPrimitives(const std::string& vertexShader, const std::string& fragmentShader);
 

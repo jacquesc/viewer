@@ -35,6 +35,7 @@ include/gl/shaderfactory.h
 include/gl/glhandle.h
 include/gl/shaderprogram.h
 include/glsl/shaderprogram/simplecolor.h
+include/glsl/shaderprogram/simplecolor.h
 
 # Source files
 src/camera.cpp
@@ -48,6 +49,7 @@ src/gl/shaderfactory.cpp
 src/gl/shaderprogram.cpp
 src/glsl/presets.cpp
 src/glsl/simplecolor.cpp
+src/glsl/simplelight.cpp
 )
 
 add_definitions(${NANOGUI_EXTRA_DEFS})

@@ -39,8 +39,12 @@ struct Uniform : public GLHandle {
 		: GLHandle(shader, name) {
 		handle = glGetUniformLocation(shader, name.c_str());
 	}
-	// matrix4
+
 	void setUniformData(const glm::mat4& matrix) {
 		glUniformMatrix4fv(handle, 1, GL_FALSE, &matrix[0][0]);
+	}
+
+	void setUniformData(const glm::vec3& vec3) {
+		glUniform4fv(handle, 1, &vec3[0]);
 	}
 };

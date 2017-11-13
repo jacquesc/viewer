@@ -21,5 +21,9 @@ public:
 
 protected:
 	std::vector<glm::vec3> mVertices;
+	std::vector<glm::vec3> mNormals;
 	glm::mat4 mModelMatrix;
+
+private:
+	void calculateNormals();
 };

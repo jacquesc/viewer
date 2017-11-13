@@ -3,6 +3,7 @@
 
 #include <gl/shaderfactory.h>
 #include <glsl/shaderprogram/simplecolor.h>
+#include <glsl/shaderprogram/simplelight.h>
 
 namespace {
 	static ShaderFactory *sInstance = NULL;
@@ -79,20 +80,19 @@ ShaderFactory *ShaderFactory::getInstance() {
 	return sInstance;
 }
 
-ShaderProgram *ShaderFactory::getPresetShader(Presets::Shaders preset, 
-	std::function<void()>* attributesCallback) {
+ShaderProgram *ShaderFactory::getPresetShader(Presets::Shaders preset) {
 	GLuint vertex = 0, fragment = 0;
 	if (mPresetShaders.find(preset) == mPresetShaders.end()) {
-		vertex = createVertexShader(Presets::simpleVert());
-		fragment = createFragmentShader(Presets::colorFrag());
 		if (preset == Presets::SIMPLE_COLOR) {
+			vertex = createVertexShader(Presets::simpleVert());
+			fragment = createFragmentShader(Presets::colorFrag());
 			std::cout << "Creating preset shader SIMPLE_COLOR" << std::endl;
 			mPresetShaders[preset] = new SimpleColorProgram(createShaderProgram(vertex, fragment));
-		}
-		// Set up shader specific things
-		if (attributesCallback) {
-			std::function<void()> cb = *attributesCallback;
-			cb();
+		} else if (preset == Presets::SIMPLE_LIGHT) {
+			vertex = createVertexShader(Presets::simpleLightVert());
+			fragment = createFragmentShader(Presets::simpleLightFrag());
+			std::cout << "Creating preset shader SIMPLE_LIGHT" << std::endl;
+			mPresetShaders[preset] = new SimpleLightProgram(createShaderProgram(vertex, fragment));
 		}
 
 		ShaderProgram *shaderProgram = mPresetShaders[preset];
@@ -105,7 +105,6 @@ ShaderProgram *ShaderFactory::getPresetShader(Presets::Shaders preset,
 		handleLinkProgramError(p, vertex, fragment);
 
 		createUniform(preset, p, shaderProgram->getUniforms());
-		createVertexAttributes(preset, p, shaderProgram->getAttributes());
 
 		glDetachShader(p, vertex);
 		glDetachShader(p, fragment);
@@ -114,31 +113,23 @@ ShaderProgram *ShaderFactory::getPresetShader(Presets::Shaders preset,
 	return mPresetShaders[preset];
 }
 
-void ShaderFactory::createVertexAttributes(Presets::Shaders preset, GLuint shaderProgram, std::vector<Attribute>& attributes) {
-	if (preset == Presets::SIMPLE_COLOR) {
-		Attribute vertex(shaderProgram, "aVertex");
-		vertex.setupAttributePointer(3);
-		attributes.push_back(vertex);
-
-		GLuint location = 0;
-		for (auto a : attributes) {
-			glBindAttribLocation(shaderProgram, location++, a.name.c_str());
-			std::cout << a.name << " " << a.handle << std::endl;
-		}
-	}
-}
-
 void ShaderFactory::createUniform(Presets::Shaders preset, GLuint shaderProgram, std::vector<Uniform>& uniforms) {
+	Uniform mvp(shaderProgram, "uMVP");
+	uniforms.push_back(mvp);
+
 	if (preset == Presets::SIMPLE_COLOR) {
 		// Uniform color(shaderProgram, "uColor");
 		// uniforms.push_back(color);
+	} else if (preset == Presets::SIMPLE_LIGHT) {
+		Uniform model(shaderProgram, "uModel");
+		uniforms.push_back(model);
 
-		Uniform mvp(shaderProgram, "uMVP");
-		uniforms.push_back(mvp);
-		
-		for (auto u : uniforms) {
-			std::cout << u.name << " " << u.handle << std::endl;
-		}
+		Uniform lightPos(shaderProgram, "uLightPos");
+		uniforms.push_back(lightPos);
+	}
+
+	for (auto u : uniforms) {
+		std::cout << u.name << " " << u.handle << std::endl;
 	}
 }
 
