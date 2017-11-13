@@ -15,12 +15,11 @@ public:
 	void setModelData(const tinyobj::attrib_t attributes, 
 		const std::vector<tinyobj::shape_t>& shapes);
 
-	void getTransform(glm::mediump_mat4& transform) const;
+	void getTransform(glm::mat4& transform);
 
 	virtual void draw(Camera *camera) = 0;
 
-private:
-	std::vector<tinyobj::shape_t> mShapes;
-	tinyobj::attrib_t mAttributes;
-	// TODO: Transform
+protected:
+	std::vector<glm::vec3> mVertices;
+	glm::mat4 mModelMatrix;
 };

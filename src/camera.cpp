@@ -2,7 +2,7 @@
 
 #include <camera.h>
 
-Camera::Camera() : mPosition(0.f), mProjection(1.f) {
+Camera::Camera() : mProjection(1.f) {
 
 }
 
@@ -22,11 +22,23 @@ void Camera::setViewport(int x, int y, int width, int height) {
 	mViewportSize.y = height;
 }
 
-void Camera::getProjectionMatrix(glm::mediump_mat4& projectionMatrix) {
+void Camera::getViewport(int &x, int &y, int &width, int &height) {
+	x = mViewportPosition.x;
+	y = mViewportPosition.y;
+	width = mViewportSize.x;
+	height = mViewportSize.y;
+}
+
+void Camera::getProjectionMatrix(glm::mat4& projectionMatrix) {
 	projectionMatrix = mProjection;
 }
 
-void Camera::getViewMatrix(glm::mediump_mat4& viewMatrix) {
+void Camera::getViewMatrix(glm::mat4& viewMatrix) {
 	// TEMP:
-	viewMatrix = glm::lookAt(glm::vec3(mPosition), glm::vec3(0.f, 0.f, 3.f), glm::vec3(0.f, 0.f, 1.f));
+	viewMatrix = glm::lookAt(
+    glm::vec3(10,3,10), // Camera is at (4,3,3), in World Space
+    glm::vec3(0,0,0), // and looks at the origin
+    glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+    );
+	// viewMatrix = glm::inverse(viewMatrix);
 }

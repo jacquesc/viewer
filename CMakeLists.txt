@@ -32,8 +32,9 @@ include/renderer.h
 include/scene.h
 include/gl/glrenderable.h
 include/gl/shaderfactory.h
-#include/gl/glhandle.h
+include/gl/glhandle.h
 include/gl/shaderprogram.h
+include/glsl/shaderprogram/simplecolor.h
 
 # Source files
 src/camera.cpp
@@ -45,6 +46,8 @@ src/ui/application.cpp
 src/gl/glrenderable.cpp
 src/gl/shaderfactory.cpp
 src/gl/shaderprogram.cpp
+src/glsl/presets.cpp
+src/glsl/simplecolor.cpp
 )
 
 add_definitions(${NANOGUI_EXTRA_DEFS})

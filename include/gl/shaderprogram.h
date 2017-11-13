@@ -1,17 +1,26 @@
 #pragma once
 
+#include <vector>
+
 #include <nanogui/opengl.h>
 #include <gl/glhandle.h>
+
+class Camera;
+class GLRenderable;
 
 class ShaderProgram {
 public:
 	ShaderProgram();
-	virtual void setupUniform();
-	virtual void setupAttribute();
+	ShaderProgram(GLuint shaderProgram);
+	virtual void updateUniform(Camera * camera, GLRenderable *renderable);
+	GLuint getHandle() const { return mShaderProgram; }
 
+	std::vector<Attribute>& getAttributes() { return mAttributes; }
+	std::vector<Uniform>& getUniforms() { return mUniforms; }
 
-private:
+protected:
 	GLuint mShaderProgram;
-	Attribute *mAttributeLocation;
-	Uniform *mUniforms;
+	std::vector<Attribute> mAttributes;
+	std::vector<Uniform> mUniforms;
+
 };
