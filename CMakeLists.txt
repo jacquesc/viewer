@@ -17,7 +17,6 @@ include_directories(
   ${NANOGUI_EXTRA_INCS}
   # Tinyobjloader
   ${TINYOBJLOADER_INCLUDE_DIR}
-
 )
 
 
@@ -37,6 +36,8 @@ include/gl/shaderprogram.h
 include/glsl/shaderprogram/simplecolor.h
 include/glsl/shaderprogram/simplecolor.h
 
+ext/trackball.h
+
 # Source files
 src/camera.cpp
 src/main.cpp
@@ -50,6 +51,9 @@ src/gl/shaderprogram.cpp
 src/glsl/presets.cpp
 src/glsl/simplecolor.cpp
 src/glsl/simplelight.cpp
+
+ext/trackball.cc
+
 )
 
 add_definitions(${NANOGUI_EXTRA_DEFS})

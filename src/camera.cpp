@@ -1,13 +1,18 @@
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <camera.h>
 
-Camera::Camera() : mProjection(1.f) {
+namespace {
+	static const glm::vec3 DEFAULT_POSITION = glm::vec3(0, 0, 5);
+	static const glm::vec3 DEFAULT_LOOKAT = glm::vec3(0,0,0);
+	static const glm::vec3 DEFAULT_UP = glm::vec3(0,1,0);
+}
 
+Camera::Camera() : mRotation(1.f), mProjection(1.f) {
 }
 
 Camera::~Camera() {
-	
 }
 
 void Camera::setCameraSettings(float fovy, float aspect, float near, float far) {
@@ -34,10 +39,21 @@ void Camera::getProjectionMatrix(glm::mat4& projectionMatrix) const {
 }
 
 void Camera::getViewMatrix(glm::mat4& viewMatrix) const {
-	// TEMP:
-	viewMatrix = glm::lookAt(
-    glm::vec3(2,3,5), // Camera is at (4,3,3), in World Space
-    glm::vec3(0,0,0), // and looks at the origin
-    glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-    );
+	viewMatrix = glm::lookAt(DEFAULT_POSITION + mDeltaPosition,
+			DEFAULT_LOOKAT + mDeltaPosition, DEFAULT_UP);
+	viewMatrix *= mRotation;
+}
+
+void Camera::updateTrackball(float rotation[4][4]) {
+	float m[16];
+	for (size_t i = 0; i < 4; i++) {
+		for (size_t j = 0; j < 4; j++) {
+			m[i * 4 + j] = rotation[i][j];
+		}
+	}
+	mRotation = glm::make_mat4(m);
+}
+
+void Camera::zoom(float zoom) {
+	mDeltaPosition.z += zoom;
 }

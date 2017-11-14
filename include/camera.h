@@ -17,10 +17,16 @@ public:
 	void getProjectionMatrix(glm::mat4& projectionMatrix) const;
 	void getViewMatrix(glm::mat4& viewMatrix) const;
 
+	void updateTrackball(float rotation[4][4]);
+
+	void zoom(float zoom);
+
 private:
-	// TODO: orientation
-	glm::vec4 mPosition;
+	glm::mat4 mRotation;
+
 	glm::mat4 mProjection;
 	glm::vec2 mViewportSize;
 	glm::vec2 mViewportPosition;
+
+	glm::vec3 mDeltaPosition;
 };

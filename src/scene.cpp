@@ -2,7 +2,12 @@
 
 #include <camera.h>
 #include <gl/glrenderable.h>
+#include <glsl/presets.h>
 #include <scene.h>
+
+namespace {
+	static const Presets::Shaders DEFAULT_SHADING = Presets::SIMPLE_LIGHT;
+}
 
 Scene::Scene() {
 }
@@ -23,8 +28,8 @@ bool Scene::addObjModel(const char * const objFile) {
 
 	if (tinyobj::LoadObj(&attributes, &shapes, &materials, &objError, objFile)) {
 		std::cout << "Obj " << objFile << " loaded." << std::endl;
-		// FIXME: set which type don't hardcode
-		GLRenderable *renderable = new GLRenderable();
+		// FIXME: set which type don't hardcode, read from "scene" file if specified
+		GLRenderable *renderable = new GLRenderable(DEFAULT_SHADING);
 		renderable->setModelData(attributes, shapes);
 		mRenderables.push_back(renderable);
 
@@ -39,7 +44,6 @@ void Scene::clear() {
 
 void Scene::setupCamera(Camera *camera) {
 	// FIXME: Remove hard-coded values
-	camera->setViewport(0.f, 0.f, 300, 300);
 	camera->setCameraSettings(45.f, 1.f, 0.1f, 100.f);
 }
 
@@ -47,9 +51,6 @@ void Scene::draw(Camera *camera) {
 	glEnable(GL_DEPTH_TEST);
 	
 	setupCamera(camera);
-	// int x, y, width, height;
-	// camera->getViewport(x, y, width, height);
-	// glViewport(x, y, width, height);
 
 	std::vector<Renderable *>::iterator it = mRenderables.begin();
 	for (; it != mRenderables.end(); ++it) {
